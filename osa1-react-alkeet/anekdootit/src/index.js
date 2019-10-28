@@ -7,7 +7,6 @@ const App = (props) => {
   const [suurin, setSuurin] = useState(-1)
 
   const handleVote = () => {
-        console.log("+1 ", selected)
         const copy = [...votes]
         copy[selected] += 1
         setVotes(copy)
