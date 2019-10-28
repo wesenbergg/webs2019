@@ -4,21 +4,56 @@ import ReactDOM from 'react-dom'
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0))
-  //const votes = Array.apply(null, new Array(anecdotes.length)).map(Number.prototype.valueOf,0)
+  const [suurin, setSuurin] = useState(-1)
 
   const handleVote = () => {
         console.log("+1 ", selected)
         const copy = [...votes]
         copy[selected] += 1
         setVotes(copy)
+        setSuurin(votes.indexOf(Math.max(...votes)))
+  }
+
+  const handleNext = () => {
+    setSelected(Math.floor(Math.random() * props.anecdotes.length))
+    setSuurin(votes.indexOf(Math.max(...votes)))
   }
 
   return (
     <>
-    <p>{votes}</p>
-    <p>{props.anecdotes[selected]}</p>
-    <button onClick={() => setSelected(Math.floor(Math.random() * props.anecdotes.length))}>next anecdote</button>
-    <button onClick={handleVote}>vote</button>
+    <Anecdote title={"Anecdote of the day"}
+     selected={selected} votes={votes} anecdotes={props.anecdotes}/>
+    <Buttons handleNext={handleNext} handleVote={handleVote}/>
+    <Anecdote title={"Anecdote with most votes"}
+     selected={suurin} votes={votes} anecdotes={props.anecdotes}/>
+    </>
+  )
+}
+
+const Buttons = props => {
+  return(
+    <>
+    <button onClick={props.handleNext}>next anecdote</button>
+    <button onClick={props.handleVote}>vote</button>
+    </>
+  )
+}
+
+const Anecdote = props => {
+  if(props.selected === -1) {
+    return(
+      <>
+      <h2>{props.title}</h2>
+      <p>null</p>
+      </>
+    )
+  }
+  
+  return(
+    <>
+    <h2>{props.title}</h2>
+    <p>{props.anecdotes[props.selected]}</p>
+    <p>has {props.votes[props.selected]} votes</p>
     </>
   )
 }
