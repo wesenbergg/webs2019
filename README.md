@@ -1,3 +1,3 @@
-# Metropolia web-kurssi syksy 2019
+# Metropolia web-kurssi syksy 2019 #
 
 Jakson seuraa väljästi materiaalia, joka löytyy osoitteesta https://github.com/covcom/205CDE. Käsiteltävät kappaleet ovat 1 - 16. Eli MVC on viimeinen,  joka käydään läpi. Kuitenkaan materiaalista ei käsitellä kaikkia kappaleita (mm. HTML5, JavaScriptin perusasiat eikä PHP:tä).  Näiden tilalla käydään materiaalin ulkopuolelta JavaScript-framework Vue sekä palvelinpuolelta Node.js.
