@@ -1,6 +1,7 @@
 import React from 'react'
 
-const AddPerson = ({ newName, setNewName, newNumber, setNewNumber, persons, setPersons }) => {
+const AddPerson = ({ newName, setNewName, newNumber, setNewNumber, persons, setPersons,
+     createPerson, update }) => {
     const handleNameChange = event => 
         setNewName(event.target.value)
 
@@ -9,18 +10,23 @@ const AddPerson = ({ newName, setNewName, newNumber, setNewNumber, persons, setP
 
     const addPerson = event => {
         event.preventDefault()
-        let personsNames = persons.map(p => p.name)
+        let foundPerson = persons.find(p => p.name === newName)
         const newObject = {
             name: newName,
             number: newNumber === '' ? "No number": newNumber
         }
-        
-        personsNames.includes(newName) ?
-        window.alert(`${newName} has allready added in phonebook.`) :
-        setPersons(persons.concat(newObject))
+
+        foundPerson !== undefined && foundPerson.name.includes(newName) ?
+        handleUpdate(foundPerson, newNumber):
+        setPersons(persons.concat(newObject)) || createPerson(newObject)
 
         setNewName('')
         setNewNumber('')
+    }
+
+    const handleUpdate = (person, newNumber) => {
+        if(window.confirm(`${person.name} is allready in phonebook. Do you want to update this number?`))
+            update({...person, number: newNumber})
     }
   
     return(
