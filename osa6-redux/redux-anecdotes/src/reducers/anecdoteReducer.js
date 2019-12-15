@@ -23,7 +23,35 @@ const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
-  return state
+  switch(action.type) {
+    case 'CREATE':
+      return [...state, asObject(action.data.content)]
+    case 'VOTE':
+      const id = action.data.id
+      const anecdoteToChange = state.find(n => n.id === id)
+      const changedAnecdote = { 
+        ...anecdoteToChange, 
+        votes: anecdoteToChange.votes+1
+      }
+      const newList = state.map(a => a.id !== id ? a : changedAnecdote )
+      return newList.sort( (a, b) => b.votes - a.votes )
+    default:
+    return state
+  }
+}
+
+export const increment = (id) => {
+  return {
+    type: 'VOTE',
+    data: { id: id }
+  }
+}
+
+export const create = (content) => {
+  return {
+    type: 'CREATE',
+    data: { content: content }
+  }
 }
 
 export default reducer
