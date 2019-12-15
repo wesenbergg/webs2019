@@ -29,7 +29,7 @@ const Blog = ({ blog, user }) => {
   }
 
   return(
-    <div className={deleted ? 'hidden': ''} style={blogStyle}>
+    <div className={deleted ? 'hidden': 'blog'} style={blogStyle}>
       <div className="blog-title" onClick={() => setShowMore(!showMore)}>
         {blog.title} {blog.author}
       </div>
