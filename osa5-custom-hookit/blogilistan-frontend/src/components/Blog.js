@@ -30,11 +30,11 @@ const Blog = ({ blog, user }) => {
 
   return(
     <div className={deleted ? 'hidden': ''} style={blogStyle}>
-      <div onClick={() => setShowMore(!showMore)}>
+      <div className="blog-title" onClick={() => setShowMore(!showMore)}>
         {blog.title} {blog.author}
       </div>
 
-      <div className={showMore ? '' : 'hidden'}>
+      <div className={showMore ? 'expandedBlog' : 'hidden'}>
         <a href={blog.url}>{blog.url}</a>
         <div>{likes}like(s) <button onClick={handleLike}>like</button></div>
         <p>added by {(blog.user && blog.user.username) || 'john doe'}</p>
