@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { increment } from '../reducers/anecdoteReducer'
-import { show, hide } from '../reducers/notificationReducer'
+import { show } from '../reducers/notificationReducer'
 import { reset } from '../reducers/filterReducer'
 
 const AncedoteList = (props) => {
@@ -9,12 +9,11 @@ const AncedoteList = (props) => {
   //console.log(store.getState().filter)
   const anecdotes = anecdotesInit.filter(a => a.content.includes(props.filter))*/
 
-  const vote = (id, content) => {
-    console.log('vote', id)
-    props.increment(id)
-    props.show(content)
+  const vote = (anecdote) => {
+    props.increment(anecdote)
+    props.show(`you voted '${anecdote.content}'`, 5)
     props.reset()
-    setTimeout(() => props.hide() , 5000)
+    //setTimeout(() => props.hide() , 5000)
   }
 
   return (
@@ -26,7 +25,7 @@ const AncedoteList = (props) => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => vote(anecdote.id, anecdote.content)}>vote</button>
+            <button onClick={() => vote(anecdote)}>vote</button>
           </div>
         </div>
       )}
@@ -41,8 +40,7 @@ const anecdotesToShow = ({ anecdotes, filter }) =>
 const mapDispatchToProps = {
   increment,
   show,
-  reset,
-  hide
+  reset
 }
 
 const mapStateToProps = (state) => {

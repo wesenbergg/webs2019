@@ -1,4 +1,5 @@
-const anecdotesAtStart = [
+import anecdoteService from '../services/anecdotes'
+/*const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
   'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
@@ -17,40 +18,56 @@ const asObject = (anecdote) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject)
+const initialState = anecdotesAtStart.map(asObject)*/
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
   switch(action.type) {
     case 'CREATE':
-      return [...state, asObject(action.data.content)]
+      //console.log(action.data)
+      return [...state, action.data]
     case 'VOTE':
-      const id = action.data.id
-      const anecdoteToChange = state.find(n => n.id === id)
-      const changedAnecdote = { 
-        ...anecdoteToChange, 
-        votes: anecdoteToChange.votes+1
-      }
-      const newList = state.map(a => a.id !== id ? a : changedAnecdote )
+      const newList = state.map(a => a.id !== action.data.id ? a : action.data )
       return newList.sort( (a, b) => b.votes - a.votes )
+    case 'INIT':
+      console.log(action.data)
+      return action.data
     default:
     return state
   }
 }
 
-export const increment = (id) => {
-  return {
-    type: 'VOTE',
-    data: { id: id }
+export const increment = (object) => {
+  return async dispatch => {
+    const votedAnecdote = await anecdoteService.update(object.id, {...object, votes: object.votes+1})
+    dispatch({
+      type: 'VOTE',
+      data: votedAnecdote
+    })
   }
 }
 
-export const create = (content) => {
-  return {
-    type: 'CREATE',
-    data: { content: content }
+export const create = (data) => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(data)
+    dispatch({
+      type: 'CREATE',
+      data: newAnecdote
+    })
+  }
+}
+
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    console.log('response')
+    console.log(anecdotes)
+    dispatch({
+      type: 'INIT',
+      data: anecdotes,
+    })
   }
 }
 

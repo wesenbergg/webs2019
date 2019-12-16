@@ -14,16 +14,15 @@ const reducer = (state = initialState, action) => {
   }
 }
 
-export const show = (content) => {
-  return {
-    type: 'SHOW',
-    data: { content: content }
-  }
-}
-
-export const hide = () => {
-  return {
-    type: 'HIDE'
+export const show = (content, time) => {
+  return async dispatch => {
+    dispatch({
+      type: 'SHOW',
+      data: { content: content }
+    })
+    setTimeout(() => dispatch({
+      type: 'HIDE'
+    }), time*1000)
   }
 }
 

@@ -1,20 +1,20 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { create } from '../reducers/anecdoteReducer'
-import { show, hide } from '../reducers/notificationReducer'
+import { show } from '../reducers/notificationReducer'
 import { reset } from '../reducers/filterReducer'
+import anecdoteService from '../services/anecdotes'
 
 
 const AncedoteForm = (props) => {
   
-  const addAnecdote = (e) => {
+  const addAnecdote = async (e) => {
     e.preventDefault()
     const content = e.target.anecdote.value
-    props.create(content)
-    props.show(content)
-    props.reset()
     e.target.anecdote.value = ''
-    setTimeout(() => props.hide() , 5000)
+    props.create(content)
+    props.show(`you created '${content}'`, 10)
+    props.reset()
   }
 
   return (
@@ -28,7 +28,7 @@ const AncedoteForm = (props) => {
   )
 }
 
-const mapDispatchToProps = { create, show, hide, reset }
+const mapDispatchToProps = { create, show, reset }
 
 const mapStateToProps = (state) => {
   return {
