@@ -26,7 +26,7 @@ const NewBlog = ({ blogs, setBlogs, message, setMessage }) => {
   const createButton = () => {
     return(
       <>
-        <button onClick={ () => setShowForm(true) }>Create form</button>
+        <button className='btn btn-outline-primary btn-lg' onClick={ () => setShowForm(true) }>Create form</button>
       </>
     )
   }
@@ -37,21 +37,23 @@ const NewBlog = ({ blogs, setBlogs, message, setMessage }) => {
       <div className={showForm ? '': 'hidden'}>
         <h2>Create new blog</h2>
         <form onSubmit={handleCreate}>
-          <div>
-            <label>Title</label>
-            <input value={newBlog.title} onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}/>
+          <div className='row'>
+            <div className='form-goup col-sm-6 col-xs-12'>
+              <label className='label'>Title</label>
+              <input className='form-control' placeholder='Oma blogi...' value={newBlog.title} onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}/>
+            </div>
+            <div className='form-group col-sm-6 col-xs-12'>
+              <label className='label'>Author</label>
+              <input className='form-control' placeholder='Mikko Mallikas' value={newBlog.author} onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}/>
+            </div>
           </div>
-          <div>
-            <label>Author</label>
-            <input value={newBlog.author} onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}/>
+          <div className='form-group'>
+            <label className='label'>Url</label>
+            <input className='form-control' placeholder='https://...' value={newBlog.url} onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}/>
           </div>
-          <div>
-            <label>Url</label>
-            <input value={newBlog.url} onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}/>
-          </div>
-          <button type='submit'>New blog</button>
+          <button className='btn btn-outline-secondary mx-2' type='submit'>New blog</button>
+          <span className='btn btn-outline-secondary' onClick={() => setShowForm(false)}>Cancel</span>
         </form>
-        <button onClick={() => setShowForm(false)}>Cancel</button>
       </div>
     </div>
   )

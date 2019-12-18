@@ -3,10 +3,11 @@ import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
 const Blog = ({ blog, user }) => {
+  const [likes, setLikes] = useState(blog === undefined ? 0: blog.likes)
   const [deleted, setDeleted] = useState(false)
-  const [likes, setLikes] = useState(blog.likes)
-  const [showMore, setShowMore] = useState(false)
-  let blogStyle = { paddingTop: 10, paddingLeft: 2, border: 'solid', marginBottom: 5 }
+
+  //prevents crash if unable reach data
+  if(blog === undefined || user === undefined ) return null
 
   const handleLike = async () => {
     try{
@@ -29,16 +30,19 @@ const Blog = ({ blog, user }) => {
   }
 
   return(
-    <div className={deleted ? 'hidden': 'blog'} style={blogStyle}>
-      <div className="blog-title" onClick={() => setShowMore(!showMore)}>
-        {blog.title} {blog.author}
+    <div className={deleted ? 'hidden': 'blog'}>
+      <div className="blog-title">
+        <h2>{blog.title} {blog.author}</h2>
+        <p className="text-muted">added by @{(blog.user && blog.user.username) || 'john doe'}</p>
       </div>
 
-      <div className={showMore ? 'expandedBlog' : 'hidden'}>
+      <div>
         <a href={blog.url}>{blog.url}</a>
-        <div>{likes}like(s) <button onClick={handleLike}>like</button></div>
-        <p>added by {(blog.user && blog.user.username) || 'john doe'}</p>
-        <button className={blog.user && (user.username === blog.user.username) ? '' : 'hidden'} onClick={handleDelete}>delete</button>
+        <div>{likes} like(s)</div>
+        <div className="row my-2">
+          <button className="btn btn-outline-secondary mx-3" onClick={handleLike}>like</button>
+          <button className={blog.user && (user.username === blog.user.username) ? 'btn btn-outline-secondary' : 'hidden'} onClick={handleDelete}>delete</button>
+        </div>
       </div>
     </div>
   )

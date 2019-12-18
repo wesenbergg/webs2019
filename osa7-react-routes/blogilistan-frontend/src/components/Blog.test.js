@@ -6,13 +6,13 @@ import Blog from './Blog'
 afterEach(cleanup)
 
 test('renders content', () => {
-  const blog = { title: 'Title', author: 'Author', likes: 0, url: 'www', user: { username: "user" } }
-  const user = { username: "user" }
+  const blog = { title: 'Title', author: 'Author', likes: 0, url: 'www', user: { username: 'user' } }
+  const user = { username: 'user' }
 
   const component = render(
     <Blog blog={blog} user={user} />
   )
-  
+
   const div = component.container.querySelector('.hidden')
   expect(div).not.toHaveTextContent( 'Title' )
   expect(div).toHaveTextContent( 'www' )
@@ -21,8 +21,8 @@ test('renders content', () => {
 })
 
 test('click test', () => {
-  const blog = { title: 'Title', author: 'Author', likes: 0, url: 'www', user: { username: "user" } }
-  const user = { username: "user" }
+  const blog = { title: 'Title', author: 'Author', likes: 0, url: 'www', user: { username: 'user' } }
+  const user = { username: 'user' }
 
   const component = render(
     <Blog blog={blog} user={user} />

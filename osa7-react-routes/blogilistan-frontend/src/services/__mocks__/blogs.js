@@ -4,7 +4,7 @@ const notes = [
     title: 'HTML is easy',
     author: 'Kissa',
     likes: 0,
-    url: "www",
+    url: 'www',
     user: {
       id: '5a437a9e514ab7f168ddf138',
       username: 'mluukkai',
@@ -13,14 +13,8 @@ const notes = [
   }
 ]
 
-let token = ""
-
 const getAll = () => {
   return Promise.resolve(notes)
 }
 
-const setToken = newToken => {
-  token = `bearer ${newToken}`
-}
-
-export default { getAll, setToken }
+export default { getAll }

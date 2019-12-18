@@ -21,3 +21,44 @@
 .hidden {
   display: none;
 }
+
+footer {
+  margin: 2rem;
+  border-top: 1px solid grey;
+}
+
+.blogilista {
+  border: 1px solid #bbb;
+  border-radius: 3px;
+}
+
+.blogilista li{
+  margin: 1rem;
+  border: 0 !important;
+  border-bottom: 1px solid #999 !important;
+  border-radius: 0 !important;
+}
+
+.kayttajalista:hover{
+  transform: scale(1.01);
+  transition: .9s;
+}
+
+.kayttajalista{
+  transition: .9s;
+}
+
+.no-style{
+  text-decoration: none !important;
+  color: black;
+  transition: .6s;
+}
+
+.no-style:hover{
+  color: #444;
+  transition: .6s;
+}
+
+.loginForm input{
+  max-width: 500px;
+}

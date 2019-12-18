@@ -12,12 +12,12 @@ describe('<App />', () => {
 
     await waitForElement(
       () => component.getByText('login')
-    ) 
+    )
 
     //etsittävät komponentit
     const login = component.container.querySelectorAll('.loginForm')
     const blogs = component.container.querySelectorAll('.blog')
-    
+
     expect(login.length).toBe(1) //tarkista: renderöidään kirjautumislomake
     expect(blogs.length).toBe(0) //tarkista: ei renderöidä blogeja
   })
@@ -28,7 +28,7 @@ describe('<App />', () => {
       token: '1231231214',
       name: 'Donald Tester'
     }
-    
+
     localStorage.setItem('user', JSON.stringify(user))
 
     const component = render( <App /> )
@@ -39,7 +39,7 @@ describe('<App />', () => {
     //etsittävät komponentit
     const login = component.container.querySelectorAll('.loginForm')
     const blogs = component.container.querySelectorAll('.blog')
-    
+
     expect(login.length).toBe(0) //tarkista: ei renderöidä kirjautumislomake
     expect(blogs.length).toBe(1) //tarkista: renderöidään blogeja
   })
