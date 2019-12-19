@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import blogService from '../services/blogs'
 import PropTypes from 'prop-types'
 
-const NewBlog = ({ blogs, setBlogs, message, setMessage }) => {
+const NewBlog = ({ user, blogs, setBlogs, message, setMessage }) => {
   const [newBlog, setNewBlog] = useState({ title: '', author: '', url: '' })
   const [showForm, setShowForm] = useState(false)
 
@@ -11,8 +11,10 @@ const NewBlog = ({ blogs, setBlogs, message, setMessage }) => {
 
     //console.log(newBlog)
     try{
-      await blogService.create(newBlog)
-      setBlogs(blogs.concat(newBlog))
+      //HOX! Backend palauttaa id viitteen
+      const returnedBlog = await blogService.create(newBlog)
+      
+      setBlogs(blogs.concat({...returnedBlog, user: user}))
       setMessage({ ...message, type: 'success', text: `addded ${newBlog.title} to bloglist` })
       setTimeout(() => setMessage({ ...message, type: 'hidden' }), 5000)
       setNewBlog({ title: '', author: '', url: '' })
@@ -40,18 +42,18 @@ const NewBlog = ({ blogs, setBlogs, message, setMessage }) => {
           <div className='row'>
             <div className='form-goup col-sm-6 col-xs-12'>
               <label className='label'>Title</label>
-              <input className='form-control' placeholder='Oma blogi...' value={newBlog.title} onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}/>
+              <input id="newBlogTitle" className='form-control' placeholder='Oma blogi...' value={newBlog.title} onChange={({ target }) => setNewBlog({ ...newBlog, title: target.value })}/>
             </div>
             <div className='form-group col-sm-6 col-xs-12'>
               <label className='label'>Author</label>
-              <input className='form-control' placeholder='Mikko Mallikas' value={newBlog.author} onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}/>
+              <input id="newBlogAuthor" className='form-control' placeholder='Mikko Mallikas' value={newBlog.author} onChange={({ target }) => setNewBlog({ ...newBlog, author: target.value })}/>
             </div>
           </div>
           <div className='form-group'>
             <label className='label'>Url</label>
-            <input className='form-control' placeholder='https://...' value={newBlog.url} onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}/>
+            <input id="newBlogURL" className='form-control' placeholder='https://...' value={newBlog.url} onChange={({ target }) => setNewBlog({ ...newBlog, url: target.value })}/>
           </div>
-          <button className='btn btn-outline-secondary mx-2' type='submit'>New blog</button>
+          <button className='btn btn-outline-secondary mx-2' type='submit'>Submit</button>
           <span className='btn btn-outline-secondary' onClick={() => setShowForm(false)}>Cancel</span>
         </form>
       </div>

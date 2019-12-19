@@ -23,7 +23,7 @@ const Menu = ({ user, setUser }) => {
   return (
     <>
       <nav className='navbar navbar-expand-lg navbar-light bg-light'>
-        <span className='navbar-brand'>Blogilista</span>
+        <span className='navbar-brand'><i className="fas fa-book-open"></i>Blogilista</span>
         <button className='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation'>
           <span className='navbar-toggler-icon'></span>
         </button>
@@ -86,15 +86,15 @@ const App = () => {
   const loginForm = () => {
     return(
       <div className='container my-5 text-center'>
-        <h2 className=''>Fill in credentials</h2>
+        <h2 className=''><i className="fas fa-book-open"></i> Fill in credentials</h2>
         <form onSubmit={handleLogin} className='loginForm'>
           <div className='form-group'>
             <label className='text-muted'>Username</label>
-            <input className='username form-control mx-auto' placeholder='Username' {...username.inputField}/>
+            <input id="username" className='username form-control mx-auto' placeholder='Username' {...username.inputField}/>
           </div>
           <div className='form-group'>
             <label className='text-muted'>Password</label>
-            <input className='password form-control mx-auto' placeholder='*********' {...password.inputField}/>
+            <input id="password" className='password form-control mx-auto' placeholder='*********' {...password.inputField}/>
           </div>
           <button className='btn btn-outline-secondary' type='submit'>login</button>
         </form>
@@ -108,7 +108,7 @@ const App = () => {
     return(
       <>
         <div>
-          <NewBlog blogs={blogs} setBlogs={setBlogs} message={message} setMessage={setMessage}/>
+          <NewBlog user={user} blogs={blogs} setBlogs={setBlogs} message={message} setMessage={setMessage}/>
         </div>
         <div className='my-4'>
           <h2>Blogs</h2>
@@ -117,7 +117,7 @@ const App = () => {
               <li key={Math.floor(Math.random()*999999)} className='list-group-item' >
                 <div className='row justify-content-between'>
                   <div>
-                    <Link to={`/blogs/b/${blog.id}`}>{blog.title}</Link>
+                    <Link className="blogilinkki" to={`/blogs/b/${blog.id}`}>{blog.title}</Link>
                     <p><small className='text-muted'>added by @{(blog.user && blog.user.username) || 'john doe'}</small></p>
                   </div>
                   <p className='text-muted'>{blog.likes} vote(s)</p>

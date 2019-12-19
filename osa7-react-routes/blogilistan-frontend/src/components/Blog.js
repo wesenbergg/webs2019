@@ -41,7 +41,7 @@ const Blog = ({ blog, user }) => {
         <div>{likes} like(s)</div>
         <div className="row my-2">
           <button className="btn btn-outline-secondary mx-3" onClick={handleLike}>like</button>
-          <button className={blog.user && (user.username === blog.user.username) ? 'btn btn-outline-secondary' : 'hidden'} onClick={handleDelete}>delete</button>
+          <button className={blog.user && (user.username === blog.user.username) ? 'btn btn-outline-secondary delete' : 'hidden'} onClick={handleDelete}>delete</button>
         </div>
       </div>
     </div>
